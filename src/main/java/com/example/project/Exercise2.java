@@ -11,10 +11,34 @@ public class Exercise2 {
             System.out.println(obj.existenDuplicados(s));
         }
     }
+    
 
     public boolean existenDuplicados(String str) {
         MyStack<Character> stack = new LinkedListStack<>();
-        // Colocar codigo aqui
+        for(int i=0; i<str.length(); i++){
+            if(i == 0){
+                stack.push(str.charAt(i));
+            }
+            else{
+                if(str.charAt(i) == '('){//condicion para agregar el primer caracter
+                    stack.push(str.charAt(i));
+                }
+                else if(str.charAt(i) == ')' && stack.top() == '('){//condicion para verificar si existe un duplicado
+                    return true;
+                }
+                else{
+                    if(str.charAt(i) != ')'){//condicion que verifica si se puede agregar caracteres diferentes de ')'
+                        stack.push(str.charAt(i));
+                    }
+                    else{//en caso exista el caracter ')' se empieza a eliminar los caracteres diferentes de '('
+                        while(stack.top() != '('){
+                            stack.pop();
+                        }
+                        stack.pop();//para completar de eliminar una expresion se elimina tambien el '('
+                    }
+                }
+            }
+        }
 
         return false;
     }
